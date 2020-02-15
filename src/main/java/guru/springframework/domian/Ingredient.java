@@ -1,39 +1,41 @@
 package guru.springframework.domian;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
-@EqualsAndHashCode(exclude = {"recipe"})
+/**
+ * Created by jt on 6/13/17.
+ */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
+@Document(collation = "Ingredients")
+
 public class Ingredient {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Lob
+
+    private String id;
     private String description;
     private BigDecimal amount;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    private UnitOfMeasure unitOfMeasure;
-
-    @ManyToOne
+    private UnitOfMeasure uom;
     private Recipe recipe;
 
-    public UnitOfMeasure getUnitOfMeasureClone() {
-        return this.unitOfMeasure;
+    public Ingredient() {
     }
 
-    public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure) {
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom) {
         this.description = description;
         this.amount = amount;
-        this.unitOfMeasure = unitOfMeasure;
+        this.uom = uom;
+    }
 
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+        this.recipe = recipe;
     }
 
 }

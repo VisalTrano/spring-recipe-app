@@ -1,7 +1,6 @@
 package guru.springframework.converters.categories;
 
 import guru.springframework.commands.CategoryCommand;
-import guru.springframework.converters.categories.CategoryCommandToCategory;
 import guru.springframework.domian.Category;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +27,7 @@ class CategoryCommandToCategoryTest {
     void convert() {
         CategoryCommand categoryCommand = new CategoryCommand();
         categoryCommand.setDescription(DESCRIPTION);
-        categoryCommand.setId(1L);
+        categoryCommand.setId("1");
 
         Category category=converter.convert(categoryCommand);
 

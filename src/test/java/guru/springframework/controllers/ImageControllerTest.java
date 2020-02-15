@@ -1,7 +1,6 @@
 package guru.springframework.controllers;
 
 import guru.springframework.commands.RecipeCommand;
-import guru.springframework.domian.Recipe;
 import guru.springframework.services.images.ImageUploadService;
 import guru.springframework.services.recipes.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +46,7 @@ class ImageControllerTest {
     public void getImageForm() throws Exception {
         //given
         RecipeCommand command = new RecipeCommand();
-        command.setId(1L);
+        command.setId("1");
 
         when(recipeService.findCommandById(anyLong())).thenReturn(command);
 
@@ -75,7 +74,7 @@ class ImageControllerTest {
     @Test
     public void renderImageFromDB() throws Exception {
         RecipeCommand command = new RecipeCommand();
-        command.setId(1L);
+        command.setId("1");
 
         String s = "fake image text";
         Byte[] bytesBoxed = new Byte[s.getBytes().length];

@@ -13,11 +13,11 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IngredientToIngredientCommandTest {
-    public static final Long RECIPE_ID = new Long(1L);
+    public static final String RECIPE_ID ="1";
     public static final BigDecimal AMOUNT = new BigDecimal("1");
     public static final String DESCRIPTION = "Cheeseburger";
-    public static final Long ID_VALUE = new Long(1L);
-    public static final Long UOM_ID = new Long(2L);
+    public static final String ID_VALUE ="1";
+    public static final String UOM_ID = "2";
     IngredientToIngredientCommand converter;
 
     @BeforeEach
@@ -38,7 +38,7 @@ class IngredientToIngredientCommandTest {
         ingredient.setDescription(DESCRIPTION);
         UnitOfMeasure unitOfMeasure = new UnitOfMeasure();
         unitOfMeasure.setId(UOM_ID);
-        ingredient.setUnitOfMeasure(unitOfMeasure);
+        ingredient.setUom(unitOfMeasure);
         Recipe recipe = new Recipe();
         recipe.setId(RECIPE_ID);
         ingredient.setRecipe(recipe);
@@ -48,6 +48,6 @@ class IngredientToIngredientCommandTest {
         assertEquals(ingredient.getId(), ingredientCommand.getId());
         assertEquals(ingredient.getAmount(), ingredientCommand.getAmount());
         assertEquals(ingredient.getDescription(), ingredientCommand.getDescription());
-        assertEquals(ingredient.getUnitOfMeasure().getId(), ingredientCommand.getUnitOfMeasure().getId());
+        assertEquals(ingredient.getUom().getId(), ingredientCommand.getUnitOfMeasure().getId());
     }
 }

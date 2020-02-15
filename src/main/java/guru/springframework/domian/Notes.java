@@ -1,18 +1,20 @@
 package guru.springframework.domian;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+
+/**
+ * Created by jt on 6/13/17.
+ */
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"recipe"})
-@Entity
+@Document(collation = "Notes")
 public class Notes {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @OneToOne
+
+    private String id;
     private Recipe recipe;
-    @Lob
     private String recipeNotes;
+
 }

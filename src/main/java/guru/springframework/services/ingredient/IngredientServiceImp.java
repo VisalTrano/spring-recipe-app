@@ -45,7 +45,7 @@ public class IngredientServiceImp implements IngredientService {
 
     @Override
     public IngredientCommand saveIngredientCommand(IngredientCommand ingredientCommand) {
-        Optional<Recipe> recipeOptional = recipeRepository.findById(ingredientCommand.getRecipeId());
+        Optional<Recipe> recipeOptional = recipeRepository.findById(new Long(ingredientCommand.getRecipeId()));
         if (!recipeOptional.isPresent()) {
             log.error("Recipe not found for id: " + ingredientCommand.getRecipeId());
             return new IngredientCommand();
@@ -60,8 +60,8 @@ public class IngredientServiceImp implements IngredientService {
             Ingredient ingredientFound = ingredientOptional.get();
             ingredientFound.setDescription(ingredientCommand.getDescription());
             ingredientFound.setAmount(ingredientCommand.getAmount());
-            ingredientFound.setUnitOfMeasure(unitOfMeasureRepository
-                    .findById(ingredientCommand.getUnitOfMeasure().getId())
+            ingredientFound.setUom(unitOfMeasureRepository
+                    .findById(new Long(ingredientCommand.getUnitOfMeasure().getId()))
                     .orElseThrow(() -> new RuntimeException("UOM NOT FOUND"))); //todo address this
         } else {
             //add new Ingredient
@@ -82,7 +82,7 @@ public class IngredientServiceImp implements IngredientService {
             savedIngredientOptional = savedRecipe.getIngredients().stream()
                     .filter(recipeIngredients -> recipeIngredients.getDescription().equals(ingredientCommand.getDescription()))
                     .filter(recipeIngredients -> recipeIngredients.getAmount().equals(ingredientCommand.getAmount()))
-                    .filter(recipeIngredients -> recipeIngredients.getUnitOfMeasure().getId().equals(ingredientCommand.getUnitOfMeasure().getId()))
+                    .filter(recipeIngredients -> recipeIngredients.getUom().getId().equals(ingredientCommand.getUnitOfMeasure().getId()))
                     .findFirst();
         }
 
@@ -92,19 +92,19 @@ public class IngredientServiceImp implements IngredientService {
 
     @Override
     public IngredientCommand saveIngredientCommand2(IngredientCommand ingredientCommand) {
-        Optional<Recipe> recipeOptional = recipeRepository.findById(ingredientCommand.getRecipeId());
+        Optional<Recipe> recipeOptional = recipeRepository.findById(new Long(ingredientCommand.getRecipeId()) );
         if (!recipeOptional.isPresent()) {
             log.error("Recipe not found for id: " + ingredientCommand.getRecipeId());
             return new IngredientCommand();
         }
 
-        Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findById(ingredientCommand.getUnitOfMeasure().getId());
+        Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findById(new Long(ingredientCommand.getUnitOfMeasure().getId()));
         if (!unitOfMeasureOptional.isPresent()) {
             log.error("UnitOfMeasure not found for id: " + ingredientCommand.getUnitOfMeasure().getId());
             return new IngredientCommand();
         }
         Ingredient ingredient = ingredientCommandToIngredient.convert(ingredientCommand);
-        ingredient.setUnitOfMeasure(unitOfMeasureOptional.get());
+        ingredient.setUom(unitOfMeasureOptional.get());
         ingredient.setRecipe(recipeOptional.get());
         Ingredient saveIngredient = ingredientRepository.save(ingredient);
         return ingredientToIngredientCommand.convert(saveIngredient);

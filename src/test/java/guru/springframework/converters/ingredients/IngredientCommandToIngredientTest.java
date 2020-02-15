@@ -2,7 +2,6 @@ package guru.springframework.converters.ingredients;
 
 import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.UnitOfMeasureCommand;
-import guru.springframework.converters.ingredients.IngredientCommandToIngredient;
 import guru.springframework.converters.uom.UnitOfMeasureCommandToUnitOfMeasure;
 import guru.springframework.domian.Ingredient;
 import guru.springframework.domian.Recipe;
@@ -18,8 +17,8 @@ class IngredientCommandToIngredientTest {
     public static final Recipe RECIPE = new Recipe();
     public static final BigDecimal AMOUNT = new BigDecimal("1");
     public static final String DESCRIPTION = "Cheeseburger";
-    public static final Long ID_VALUE = new Long(1L);
-    public static final Long UOM_ID = new Long(2L);
+    public static final String ID_VALUE = "1";
+    public static final String UOM_ID = "2";
 
     IngredientCommandToIngredient converter;
 
@@ -40,13 +39,13 @@ class IngredientCommandToIngredientTest {
                 .description(DESCRIPTION)
                 .amount(AMOUNT)
                 .unitOfMeasure(new UnitOfMeasureCommand().builder().id(UOM_ID).build())
-                .recipeId(1L)
+                .recipeId("1")
                 .build();
         Ingredient ingredient = converter.convert(ingredientCommand);
         assertNotNull(ingredient);
         assertEquals(ingredient.getId(), ingredientCommand.getId());
         assertEquals(ingredient.getAmount(), ingredientCommand.getAmount());
         assertEquals(ingredient.getDescription(), ingredientCommand.getDescription());
-        assertEquals(ingredient.getUnitOfMeasure().getId(), ingredientCommand.getUnitOfMeasure().getId());
+        assertEquals(ingredient.getUom().getId(), ingredientCommand.getUnitOfMeasure().getId());
     }
 }

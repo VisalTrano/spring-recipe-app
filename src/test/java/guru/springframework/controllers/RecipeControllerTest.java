@@ -50,7 +50,7 @@ class RecipeControllerTest {
     public void testGetRecipe() throws Exception {
 
         Recipe recipe = new Recipe();
-        recipe.setId(1L);
+        recipe.setId("1");
 
         when(recipeService.findById(anyLong())).thenReturn(recipe);
 
@@ -73,7 +73,7 @@ class RecipeControllerTest {
     @Test
     public void testPostNewRecipeForm() throws Exception {
         RecipeCommand command = new RecipeCommand();
-        command.setId(2L);
+        command.setId("2");
 
         when(recipeService.saveRecipeCommand(any())).thenReturn(command);
 
@@ -87,7 +87,7 @@ class RecipeControllerTest {
     @Test
     public void testPostNewRecipeFormFail() throws Exception {
         RecipeCommand command = new RecipeCommand();
-        command.setId(2L);
+        command.setId("2");
 
         when(recipeService.saveRecipeCommand(any())).thenReturn(command);
 
@@ -102,7 +102,7 @@ class RecipeControllerTest {
     @Test
     public void testGetUpdateView() throws Exception {
         RecipeCommand command = new RecipeCommand();
-        command.setId(2L);
+        command.setId("2");
 
         when(recipeService.findCommandById(anyLong())).thenReturn(command);
 

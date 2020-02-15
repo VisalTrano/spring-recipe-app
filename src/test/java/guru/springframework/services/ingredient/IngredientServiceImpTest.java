@@ -30,7 +30,7 @@ class IngredientServiceImpTest {
     IngredientCommandToIngredient ingredientCommandToIngredient;
 
     IngredientService ingredientService;
-    Long ID_VALUE = 1L;
+    String ID_VALUE = "1";
 
     @BeforeEach
     void setUp() {
@@ -44,7 +44,7 @@ class IngredientServiceImpTest {
         ingredient.setId(ID_VALUE);
         Optional<Ingredient> ingredientData = Optional.of(ingredient);
         when(ingredientRepository.findById(anyLong())).thenReturn(ingredientData);
-        Ingredient ingredientReturn = ingredientService.findById(ID_VALUE);
+        Ingredient ingredientReturn = ingredientService.findById(new Long(ID_VALUE));
         assertNotNull(ingredientReturn);
     }
 }

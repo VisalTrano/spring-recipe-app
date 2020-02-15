@@ -1,16 +1,18 @@
 package guru.springframework.domian;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+
+/**
+ * Created by jt on 6/13/17.
+ */
 @Getter
 @Setter
-@Entity
+@Document(collation = "UnitOfMeasures")
 public class UnitOfMeasure {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Long id;
-    @Lob
-    private String description;
 
+    private String id;
+    private String description;
 }

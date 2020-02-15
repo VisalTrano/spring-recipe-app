@@ -1,7 +1,6 @@
 package guru.springframework.converters.uom;
 
 import guru.springframework.commands.UnitOfMeasureCommand;
-import guru.springframework.converters.uom.UnitOfMeasureCommandToUnitOfMeasure;
 import guru.springframework.domian.UnitOfMeasure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class UnitOfMeasureCommandToUnitOfMeasureTest {
 
     static final String DESCRIPTION = "description";
-    static final Long LONG_VALUE = 1L;
+    static final String LONG_VALUE =  "1";
     UnitOfMeasureCommandToUnitOfMeasure converter;
 
     @BeforeEach

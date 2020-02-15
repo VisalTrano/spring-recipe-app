@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NotesToNotesCommnadTest {
     static final String RECIPE_NOTES = "recipe notes";
-    static final Long LONG_VALUE = 1L;
+    static final String LONG_VALUE = "1";
     NotesToNotesCommnad converter;
 
     @BeforeEach

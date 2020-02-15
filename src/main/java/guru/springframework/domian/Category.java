@@ -1,22 +1,19 @@
 package guru.springframework.domian;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-
-import javax.persistence.*;
 import java.util.Set;
 
-@EqualsAndHashCode(exclude = {"recipes"})
+/**
+ * Created by jt on 6/13/17.
+ */
 @Getter
 @Setter
-@Entity
+@Document(collation = "categories")
 public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Lob
+    private String id;
     private String description;
-    @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes;
-
 }

@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UnitOfMeasureCommand {
-    private Long id;
+    private String id;
     private String description;
 
 }

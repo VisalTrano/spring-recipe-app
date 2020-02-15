@@ -1,7 +1,6 @@
 package guru.springframework.converters.notes;
 
 import guru.springframework.commands.NotesCommand;
-import guru.springframework.converters.notes.NotesCommandToNotes;
 import guru.springframework.domian.Notes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class NotesCommandToNotesTest {
 
     static final String RECIPE_NOTES = "recipe notes";
-    static final Long LONG_VALUE = 1L;
+    static final String LONG_VALUE = "1";
     NotesCommandToNotes converter;
 
     @BeforeEach

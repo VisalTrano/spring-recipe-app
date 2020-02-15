@@ -50,7 +50,7 @@ public class IngredientController {
 
     @GetMapping(value = {"/recipe/{recipe_id}/ingredient/new"})
     public String newIngredient(Model model, @PathVariable String recipe_id) {
-        IngredientCommand ingredientCommand = new IngredientCommand().builder().recipeId(new Long(recipe_id)).unitOfMeasure(new UnitOfMeasureCommand()).build();
+        IngredientCommand ingredientCommand = new IngredientCommand().builder().recipeId(recipe_id).unitOfMeasure(new UnitOfMeasureCommand()).build();
         model.addAttribute("uomList", unitOfMeasureService.getUnitOfMeasures());
         model.addAttribute("ingredient", ingredientCommand);
 

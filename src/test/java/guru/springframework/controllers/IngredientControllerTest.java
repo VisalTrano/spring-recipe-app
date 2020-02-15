@@ -55,7 +55,7 @@ class IngredientControllerTest {
     @Test
     public void testGetIngredient() throws Exception {
         IngredientCommand ingredientCommand = new IngredientCommand();
-        ingredientCommand.setId(1L);
+        ingredientCommand.setId("1");
         when(ingredientService.findCommandById(anyLong())).thenReturn(ingredientCommand);
 
         mockMvc.perform(get("/recipe/1/ingredient/1/show"))
