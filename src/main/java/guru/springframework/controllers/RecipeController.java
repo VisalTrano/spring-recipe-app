@@ -1,6 +1,8 @@
 package guru.springframework.controllers;
 
+import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.RecipeCommand;
+import guru.springframework.domian.Recipe;
 import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.services.category.CategoryService;
 import guru.springframework.services.recipes.RecipeService;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @Slf4j
 @Controller
@@ -27,7 +30,7 @@ public class RecipeController {
 
     @RequestMapping("/recipe/{id}/show")
     public String showBYId(@PathVariable String id, Model model) {
-        model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
+        model.addAttribute("recipe",  recipeService.findById(id).block());
         return "recipe/show";
     }
 
@@ -41,14 +44,14 @@ public class RecipeController {
 
     @RequestMapping("/recipe/{id}/update")
     public String updateRecipe(Model model, @PathVariable String id) {
-        model.addAttribute("recipe", recipeService.findCommandById(new Long(id)));
+        model.addAttribute("recipe", recipeService.findCommandById(id));
         model.addAttribute("categories", categoryService.getCategoryCommands());
         return "recipe/recipeform";
     }
 
     @RequestMapping("/recipe/{id}/delete")
     public String deleteRecipe(@PathVariable String id) {
-        recipeService.deleteById(new Long(id));
+        recipeService.deleteById(id);
         return "redirect:/";
     }
 
@@ -61,7 +64,11 @@ public class RecipeController {
             });
             return "recipe/recipeform";
         }
-        RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
+        if (recipeCommand.getId() != null) {
+            Set<IngredientCommand> ingredientCommands = recipeService.findCommandById(recipeCommand.getId()).getIngredients();
+            recipeCommand.setIngredients(ingredientCommands);
+        }
+        RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand).block();
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
 

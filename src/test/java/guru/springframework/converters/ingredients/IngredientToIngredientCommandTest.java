@@ -41,7 +41,6 @@ class IngredientToIngredientCommandTest {
         ingredient.setUom(unitOfMeasure);
         Recipe recipe = new Recipe();
         recipe.setId(RECIPE_ID);
-        ingredient.setRecipe(recipe);
         IngredientCommand ingredientCommand = converter.convert(ingredient);
 
         assertNotNull(ingredientCommand);

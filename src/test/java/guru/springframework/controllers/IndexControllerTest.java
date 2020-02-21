@@ -11,12 +11,15 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
+import reactor.core.publisher.Flux;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -57,19 +60,21 @@ class IndexControllerTest {
         Recipe recipe = new Recipe();
         recipe.setId("1");
         recipes.add(recipe);
-        when(recipeService.getRecipes()).thenReturn(recipes);
+        given(recipeService.getRecipes()).willReturn(Flux.fromIterable(recipes));
 
+        ArgumentCaptor<Flux<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Flux.class);
         //when
         String viewName = indexController.getIndexPage(model);
 
         //then
         assertEquals("index", viewName);
         verify(recipeService, times(1)).getRecipes();
-        verify(model, times(1)).addAttribute(eq("recipes"), argRecipeAptor.capture());
+        verify(model, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
 
-        Set<Recipe> setInController = argRecipeAptor.getValue();
+        Flux<Recipe> recipeFlux=  argumentCaptor.getValue();
+        List<Recipe> recipeList = recipeFlux.collectList().block();
 
-        assertEquals(2, setInController.size());
+        assertEquals(2, recipeList.size());
     }
 
 }

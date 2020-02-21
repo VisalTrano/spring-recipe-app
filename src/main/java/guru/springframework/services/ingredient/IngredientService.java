@@ -2,19 +2,20 @@ package guru.springframework.services.ingredient;
 
 import guru.springframework.commands.IngredientCommand;
 import guru.springframework.domian.Ingredient;
+import reactor.core.publisher.Mono;
 
 import java.util.Set;
 
 public interface IngredientService {
-    Ingredient findById(Long id);
+    Mono<Ingredient> findById(String id);
 
-    IngredientCommand findCommandById(Long id);
+    Mono<IngredientCommand> findCommandById(String id);
 
-    IngredientCommand saveIngredientCommand(IngredientCommand ingredientCommand);
+    Mono<IngredientCommand> saveIngredientCommand(IngredientCommand ingredientCommand);
     IngredientCommand saveIngredientCommand2(IngredientCommand ingredientCommand);
 
-    void deletedById(Long id);
+    Mono<Void> deletedById(String id);
 
     Set<Ingredient> getIngredients();
-    IngredientCommand findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId);
+    Mono<IngredientCommand> findByRecipeIdAndIngredientId(String recipeId, String ingredientId);
 }

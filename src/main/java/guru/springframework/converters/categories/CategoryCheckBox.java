@@ -15,7 +15,7 @@ public class CategoryCheckBox implements Converter<String, Category> {
 
     @Override
     public Category convert(String id) {
-        Category category = categoryRepository.findById(new Long(id)).orElse(null);
+        Category category = categoryRepository.findById(id).orElse(null);
         return category;
     }
 }

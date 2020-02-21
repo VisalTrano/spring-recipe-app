@@ -10,9 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Getter
 @Setter
-@Document(collation = "UnitOfMeasures")
+@Document
 public class UnitOfMeasure {
-
     private String id;
     private String description;
 }
